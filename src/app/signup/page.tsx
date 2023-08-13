@@ -3,6 +3,8 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -20,6 +22,16 @@ export default function SignupPage() {
       setError("");
       const result = await axios.post("/api/users/signup", user);
       console.log(result.data);
+      toast.success("Signup successfull", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       router.push("/login");
     } catch (err: any) {
       setError(err.response.data.error);
