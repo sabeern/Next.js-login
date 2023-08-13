@@ -2,6 +2,7 @@ import { mongoConnect } from "@/dbConfig/dbConfig";
 import userModel from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
+import { sendMail } from "@/helpers/mailer";
 
 mongoConnect();
 
@@ -25,6 +26,7 @@ export async function POST(request: NextRequest) {
       password: hashPassword,
     });
     const savedUser = await newUser.save();
+    sendMail({ email, emailType: "VERIFY", userId: savedUser._id });
     return NextResponse.json({
       message: "User created successfully",
       success: true,
