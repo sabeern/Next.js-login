@@ -28,6 +28,9 @@ const userSchema = new mongoose.Schema({
   verifyTokenExpiry: Date,
 });
 
-const user =
-  mongoose.model.users || mongoose.model(process.env.USER_SCHEMA, userSchema);
-export default user;
+const userModel =
+  mongoose.models.users || mongoose.model(process.env.USER_SCHEMA, userSchema);
+export default userModel;
+// const User = mongoose.models.users || mongoose.model("users", userSchema);
+
+// export default User;
